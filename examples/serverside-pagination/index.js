@@ -7,8 +7,8 @@ class Example extends React.Component {
 
   state = {
     page: 0,
-    count: 1,
-    data: [["Loading Data..."]],
+    count: 0,
+    data: [],
     isLoading: false
   };
 
@@ -53,6 +53,7 @@ class Example extends React.Component {
 
   changePage = (page) => {
     this.setState({
+      data: [],
       isLoading: true,
     });
     this.xhrRequest(`/myApiServer?page=${page}`).then(res => {
@@ -69,6 +70,9 @@ class Example extends React.Component {
 
     const columns = ["Name", "Title", "Location"];
     const { data, page, count, isLoading } = this.state;
+    const elPlaceholder = isLoading
+      ? <div style={{margin: 15}}><CircularProgress style={{margin: 15}} /> <br />Loading Data...</div>
+      : null;
 
     const options = {
       filter: true,
@@ -92,11 +96,8 @@ class Example extends React.Component {
     };
     return (
       <div>
-        <MUIDataTable title={<Typography variant="title">
-          ACME Employee list
-          {isLoading && <CircularProgress size={24} style={{marginLeft: 15, position: 'relative', top: 4}} />}
-          </Typography>
-          } data={data} columns={columns} options={options} />
+        <MUIDataTable title={<Typography variant="title"> ACME Employee list </Typography>}
+          data={data} columns={columns} options={options} placeholder={elPlaceholder} />
       </div>
     );
 

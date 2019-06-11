@@ -16,6 +16,8 @@ const defaultBodyStyles = {
 
 class TableBody extends React.Component {
   static propTypes = {
+    /** placeholder when no data */
+    placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     /** Data used to describe table */
     data: PropTypes.array.isRequired,
     /** Total number of data rows */
@@ -142,7 +144,7 @@ class TableBody extends React.Component {
   };
 
   render() {
-    const { classes, columns, toggleExpandRow, options } = this.props;
+    const { classes, columns, toggleExpandRow, options, placeholder } = this.props;
     const tableRows = this.buildRows();
     const visibleColCnt = columns.filter(c => c.display === 'true').length;
 
@@ -212,7 +214,7 @@ class TableBody extends React.Component {
               colIndex={0}
               rowIndex={0}>
               <Typography variant="subtitle1" className={classes.emptyTitle}>
-                {options.textLabels.body.noMatch}
+                {placeholder || options.textLabels.body.noMatch}
               </Typography>
             </TableBodyCell>
           </TableBodyRow>

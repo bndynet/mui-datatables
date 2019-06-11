@@ -70,6 +70,8 @@ const hasToolbarItem = (options, title) => {
 
 class MUIDataTable extends React.Component {
   static propTypes = {
+    /** placeholder when no data */
+    placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     /** Title of the table */
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     /** Data used to describe table */
@@ -1068,7 +1070,7 @@ class MUIDataTable extends React.Component {
   };
 
   render() {
-    const { classes, className, title } = this.props;
+    const { classes, className, title, placeholder } = this.props;
     const {
       announceText,
       activeColumn,
@@ -1169,6 +1171,7 @@ class MUIDataTable extends React.Component {
               toggleExpandRow={this.toggleExpandRow}
               options={this.options}
               filterList={filterList}
+              placeholder={placeholder}
             />
           </MuiTable>
         </div>
